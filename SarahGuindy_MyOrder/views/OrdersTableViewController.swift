@@ -4,6 +4,7 @@
 //
 //  Created by Sarah Guindy on 2021-02-20.
 //  Student number: 147465173
+//  https://github.com/sarahtguindy/MAP523_Assignment_3.git
 //
 
 // MVC - View
@@ -28,19 +29,16 @@ class OrdersTableViewController: UITableViewController {
     // Add individual order to the orders list
     public func addOrder(size: String, type: String, quantity: Int) {
         
-//        let newIndex = orderList.count
-//
-//        self.orderList.append(newOrder ?? Order())
-//
-//        // Insert row into table
-//        tableView.insertRows(at: [IndexPath(row: newIndex, section: 0)], with: .automatic)
-//        tableView.reloadData()
-        
         let newOrder = Order(size: size, type: type, quantity: quantity)
         
         self.dbHelper.insertOrder(newOrder: newOrder)
         self.fetchAllOrders()
         
+    }
+    
+    public func deleteOrder(indexPath: IndexPath) {
+        self.dbHelper.deleteOrder(id: self.orderList[indexPath.row].id!)
+        self.fetchAllOrders()
     }
     
     // Communicate with controller to populate orderList
@@ -77,6 +75,13 @@ class OrdersTableViewController: UITableViewController {
         }
 
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        
+        if (indexPath.row < self.orderList.count){
+            self.deleteOrder(indexPath: indexPath)
+        }
     }
     
     /*

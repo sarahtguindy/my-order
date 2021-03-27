@@ -3,6 +3,8 @@
 //  SarahGuindy_MyOrder
 //
 //  Created by Sarah Guindy on 2021-03-26.
+//  Student number: 147465173
+//  https://github.com/sarahtguindy/MAP523_Assignment_3.git
 //
 
 // MVC - Controller
@@ -30,6 +32,48 @@ class DatabaseHelper {
     
     private init(context : NSManagedObjectContext) {
         self.moc = context
+    }
+    
+    // Search
+    func searchOrder(id: UUID) -> Orders? {
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: ENTITY_NAME)
+        let predicate = NSPredicate(format: "id == %@", id as CVarArg)
+        fetchRequest.predicate = predicate
+        
+        do {
+            
+            let result = try self.moc.fetch(fetchRequest)
+            
+            if result.count > 0 {
+                return result.first as? Orders
+            }
+            
+        } catch let error as NSError {
+            print("Search failed \(error) \(error.code)")
+        }
+        
+        return nil
+    }
+    
+    // Update
+    
+    // Delete
+    func deleteOrder(id: UUID) {
+        let searchResult = self.searchOrder(id: id)
+        
+        if (searchResult != nil) {
+            // Matching record found
+            do {
+                
+                self.moc.delete(searchResult!)
+                try self.moc.save()
+                
+                print(#function, "Order deleted successfully")
+                
+            } catch let error as NSError {
+                print("Delete failed \(error) \(error.code)")
+            }
+        }
     }
     
     // Insert
