@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		3920B4BE25E0992300ECD464 /* OrderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3920B4BD25E0992300ECD464 /* OrderViewController.swift */; };
 		396F1109260E60E600AA140B /* OrderModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 396F1107260E60E600AA140B /* OrderModel.xcdatamodeld */; };
+		396F110F260EB2B400AA140B /* DatabaseHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 396F110E260EB2B400AA140B /* DatabaseHelper.swift */; };
 		39CA300625DE1DD4005BA20A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39CA300525DE1DD4005BA20A /* AppDelegate.swift */; };
 		39CA300825DE1DD4005BA20A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39CA300725DE1DD4005BA20A /* SceneDelegate.swift */; };
 		39CA300A25DE1DD4005BA20A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39CA300925DE1DD4005BA20A /* ViewController.swift */; };
@@ -23,6 +24,7 @@
 /* Begin PBXFileReference section */
 		3920B4BD25E0992300ECD464 /* OrderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderViewController.swift; sourceTree = "<group>"; };
 		396F1108260E60E600AA140B /* OrderModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = OrderModel.xcdatamodel; sourceTree = "<group>"; };
+		396F110E260EB2B400AA140B /* DatabaseHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseHelper.swift; sourceTree = "<group>"; };
 		39CA300225DE1DD4005BA20A /* SarahGuindy_MyOrder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SarahGuindy_MyOrder.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		39CA300525DE1DD4005BA20A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		39CA300725DE1DD4005BA20A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -47,6 +49,32 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		396F110B260EB14C00AA140B /* views */ = {
+			isa = PBXGroup;
+			children = (
+				39CF976D25E1B5E80098611D /* OrdersTableViewCell.swift */,
+				39CF976A25E1AEB80098611D /* OrdersTableViewController.swift */,
+				3920B4BD25E0992300ECD464 /* OrderViewController.swift */,
+			);
+			path = views;
+			sourceTree = "<group>";
+		};
+		396F110C260EB1B400AA140B /* controllers */ = {
+			isa = PBXGroup;
+			children = (
+				396F110E260EB2B400AA140B /* DatabaseHelper.swift */,
+			);
+			path = controllers;
+			sourceTree = "<group>";
+		};
+		396F110D260EB1CD00AA140B /* models */ = {
+			isa = PBXGroup;
+			children = (
+				39CF977525E1BB980098611D /* Order.swift */,
+			);
+			path = models;
+			sourceTree = "<group>";
+		};
 		39CA2FF925DE1DD4005BA20A = {
 			isa = PBXGroup;
 			children = (
@@ -66,6 +94,9 @@
 		39CA300425DE1DD4005BA20A /* SarahGuindy_MyOrder */ = {
 			isa = PBXGroup;
 			children = (
+				396F110D260EB1CD00AA140B /* models */,
+				396F110C260EB1B400AA140B /* controllers */,
+				396F110B260EB14C00AA140B /* views */,
 				39CA300525DE1DD4005BA20A /* AppDelegate.swift */,
 				39CA300725DE1DD4005BA20A /* SceneDelegate.swift */,
 				39CA300925DE1DD4005BA20A /* ViewController.swift */,
@@ -73,10 +104,6 @@
 				39CA300E25DE1DD4005BA20A /* Assets.xcassets */,
 				39CA301025DE1DD4005BA20A /* LaunchScreen.storyboard */,
 				39CA301325DE1DD4005BA20A /* Info.plist */,
-				3920B4BD25E0992300ECD464 /* OrderViewController.swift */,
-				39CF976A25E1AEB80098611D /* OrdersTableViewController.swift */,
-				39CF976D25E1B5E80098611D /* OrdersTableViewCell.swift */,
-				39CF977525E1BB980098611D /* Order.swift */,
 				396F1107260E60E600AA140B /* OrderModel.xcdatamodeld */,
 			);
 			path = SarahGuindy_MyOrder;
@@ -153,6 +180,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				39CA300A25DE1DD4005BA20A /* ViewController.swift in Sources */,
+				396F110F260EB2B400AA140B /* DatabaseHelper.swift in Sources */,
 				39CA300625DE1DD4005BA20A /* AppDelegate.swift in Sources */,
 				39CF976E25E1B5E80098611D /* OrdersTableViewCell.swift in Sources */,
 				39CF976B25E1AEB80098611D /* OrdersTableViewController.swift in Sources */,
