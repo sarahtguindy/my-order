@@ -6,6 +6,8 @@
 //  Student number: 147465173
 //
 
+// MVC - View
+
 import UIKit
 
 class OrdersTableViewCell: UITableViewCell {

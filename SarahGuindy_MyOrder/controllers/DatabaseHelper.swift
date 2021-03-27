@@ -5,6 +5,8 @@
 //  Created by Sarah Guindy on 2021-03-26.
 //
 
+// MVC - Controller
+
 import Foundation
 import CoreData
 import UIKit
@@ -24,9 +26,56 @@ class DatabaseHelper {
     }
     
     private let moc : NSManagedObjectContext
+    private let ENTITY_NAME = "Orders"
     
     private init(context : NSManagedObjectContext) {
         self.moc = context
+    }
+    
+    // Insert
+    func insertOrder(newOrder: Order) {
+        
+        do {
+            // Insert new record
+            let orderToBeAdded = NSEntityDescription.insertNewObject(forEntityName: ENTITY_NAME, into: self.moc) as! Orders
+            
+            orderToBeAdded.size = newOrder.size
+            orderToBeAdded.type = newOrder.type
+            orderToBeAdded.quantity = Int32(newOrder.quantity)
+            orderToBeAdded.id = UUID()
+            orderToBeAdded.date = Date()
+            
+            if self.moc.hasChanges {
+                try self.moc.save()
+                print(#function, "Data inserted successfully")
+            }
+            
+        } catch let error as NSError {
+            print(#function, "Could not insert new record \(error) \(error.code)")
+        }
+        
+    }
+    
+    // Retrieve all Orders
+    func getAllOrders() -> [Orders]? {
+        let fetchRequest = NSFetchRequest<Orders>(entityName: ENTITY_NAME)
+        fetchRequest.sortDescriptors = [NSSortDescriptor.init(key: "date", ascending: false)]
+        
+        do {
+            
+            // Execute request
+            let result = try self.moc.fetch(fetchRequest)
+            print(#function, "Fetched data : \(result as [Orders])")
+            
+            // Return the fetched objects
+            return result as [Orders]
+            
+        } catch let error as NSError {
+            print("Could not fetch data \(error) \(error.code)")
+        }
+        
+        // No data retrieved
+        return nil
     }
     
 }

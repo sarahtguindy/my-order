@@ -6,33 +6,51 @@
 //  Student number: 147465173
 //
 
+// MVC - View
+
 import UIKit
 
 // Orders screen
 class OrdersTableViewController: UITableViewController {
     
-    var newOrder: Order?
-    var orderList = [Order]()
+    private var orderList : [Orders] = [Orders]()
+    private let dbHelper = DatabaseHelper.getInstance()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.fetchAllOrders()
+        
         self.navigationItem.title = "Order History"
 
-        self.addOrder()
     }
     
     // Add individual order to the orders list
-    public func addOrder() {
+    public func addOrder(size: String, type: String, quantity: Int) {
         
-        let newIndex = orderList.count
+//        let newIndex = orderList.count
+//
+//        self.orderList.append(newOrder ?? Order())
+//
+//        // Insert row into table
+//        tableView.insertRows(at: [IndexPath(row: newIndex, section: 0)], with: .automatic)
+//        tableView.reloadData()
         
-        self.orderList.append(newOrder ?? Order())
+        let newOrder = Order(size: size, type: type, quantity: quantity)
         
-        // Insert row into table
-        tableView.insertRows(at: [IndexPath(row: newIndex, section: 0)], with: .automatic)
-        tableView.reloadData()
+        self.dbHelper.insertOrder(newOrder: newOrder)
+        self.fetchAllOrders()
         
+    }
+    
+    // Communicate with controller to populate orderList
+    private func fetchAllOrders() {
+        if (self.dbHelper.getAllOrders() != nil) {
+            self.orderList = self.dbHelper.getAllOrders()!
+            self.tableView.reloadData()
+        } else {
+            print(#function, "No data recieved from dbHelper")
+        }
     }
 
     override func numberOfSections(in tableView: UITableView) -> Int {

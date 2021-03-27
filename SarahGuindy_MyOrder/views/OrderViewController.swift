@@ -6,12 +6,14 @@
 //  Student number: 147465173
 //
 
+// MVC - View
+
 import UIKit
 
 // Order screen
 class OrderViewController: UIViewController {
     
-//    var orderList = [Order]()
+    private var orderList : [Orders] = [Orders]()
     let secondVC = OrdersTableViewController()
     let coffeeTypes = ["Dark Roast", "Original Blend", "Vanilla"]
     var sizeSelected = ""
@@ -52,16 +54,13 @@ class OrderViewController: UIViewController {
     
     // Go to orders screen when Next button is clicked
     @IBAction func nextScreen() {
-//        let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
-//        let ordersTableVC = storyboard.instantiateViewController(identifier: "OrdersTableVC")
-//        self.navigationController?.pushViewController(ordersTableVC, animated: true)
-        
+
         let sb = storyboard?.instantiateViewController(withIdentifier: "OrdersTableVC") as! OrdersTableViewController
 
         // Send temporary object to the next screen
-        sb.newOrder = Order(size: sizeSelected, type: typeSelected, quantity: quantitySelected)
-
-        present(sb, animated: true, completion: nil)
+        sb.addOrder(size: sizeSelected, type: typeSelected, quantity: quantitySelected)
+        
+        self.navigationController?.pushViewController(sb, animated: true)
         
     }
     
