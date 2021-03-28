@@ -56,6 +56,23 @@ class DatabaseHelper {
     }
     
     // Update
+    func updateOrder(updatedOrder: Orders) {
+        let searchResult = self.searchOrder(id: updatedOrder.id! as UUID)
+        
+        if (searchResult != nil) {
+            do {
+                
+                let orderToUpdate = searchResult!
+                orderToUpdate.quantity = updatedOrder.quantity
+                
+                try self.moc.save()
+                print(#function, "Quantity updated successfully")
+                
+            } catch let error as NSError {
+                print("Search failed \(error) \(error.code)")
+            }
+        }
+    }
     
     // Delete
     func deleteOrder(id: UUID) {

@@ -26,7 +26,7 @@ class OrdersTableViewController: UITableViewController {
 
     }
     
-    // Add individual order to the orders list
+    // Insert order into list
     public func addOrder(size: String, type: String, quantity: Int) {
         
         let newOrder = Order(size: size, type: type, quantity: quantity)
@@ -36,8 +36,19 @@ class OrdersTableViewController: UITableViewController {
         
     }
     
+    // Delete order from list
     public func deleteOrder(indexPath: IndexPath) {
         self.dbHelper.deleteOrder(id: self.orderList[indexPath.row].id!)
+        self.fetchAllOrders()
+    }
+    
+    
+    // Update order in list
+    private func updateOrder(indexPath: IndexPath, quantity: Int) {
+        // Allow the user to update the quantity
+        self.orderList[indexPath.row].quantity = Int32(quantity)
+        
+        self.dbHelper.updateOrder(updatedOrder: self.orderList[indexPath.row])
         self.fetchAllOrders()
     }
     
@@ -81,6 +92,36 @@ class OrdersTableViewController: UITableViewController {
         
         if (indexPath.row < self.orderList.count){
             self.deleteOrder(indexPath: indexPath)
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+//        var newQuantity: Int?
+    
+        if indexPath.row < self.orderList.count{
+            
+            let alertController = UIAlertController(title: "Edit", message: "Edit quantity", preferredStyle: .alert)
+            
+            alertController.addTextField { (textField) in
+                textField.placeholder = "Quantity"
+            }
+            
+            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+            let saveAction = UIAlertAction(title: "Save", style: .default) { _ in
+
+                let inputQuantity = alertController.textFields![0].text
+                self.updateOrder(indexPath: indexPath, quantity: Int(inputQuantity!) ?? 0)
+
+            }
+            
+            alertController.addAction(cancelAction)
+            alertController.addAction(saveAction)
+
+            present(alertController, animated: true, completion: nil)
+    
+            tableView.reloadRows(at: [indexPath], with: .automatic)
+        
         }
     }
     
